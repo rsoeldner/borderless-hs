@@ -1,0 +1,127 @@
+cabal-version:      2.4
+name:               borderless
+version:            0.1.0.0
+synopsis:           Servant bindings to Borderless.xyz API
+description:        Type-safe Haskell bindings to the Borderless.xyz API for
+                    crypto/fiat payment operations. Includes both a Servant
+                    interface and a high-level Methods record.
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Robert Soeldner
+maintainer:         robert@wuselfabrik.de
+category:           API, Web, Finance
+copyright:          2024
+build-type:         Simple
+
+library
+    default-language:   Haskell2010
+    hs-source-dirs:     src
+    build-depends:      base >=4.15.0.0 && < 5
+                      , aeson
+                      , async
+                      , bytestring
+                      , containers
+                      , http-api-data
+                      , http-client
+                      , http-client-tls
+                      , http-types
+                      , random
+                      , servant
+                      , servant-client
+                      , stm
+                      , text
+                      , time
+                      , unordered-containers
+                      , uuid
+                      , vector
+    exposed-modules:    Borderless.V1
+                        Borderless.V1.Auth
+                        Borderless.V1.Users
+                        Borderless.V1.PermissionGroups
+                        Borderless.V1.Identities
+                        Borderless.V1.Accounts
+                        Borderless.V1.VirtualAccounts
+                        Borderless.V1.PaymentInstructions
+                        Borderless.V1.Transactions
+                        Borderless.V1.Transactions.Deposits
+                        Borderless.V1.Transactions.Withdrawals
+                        Borderless.V1.Transactions.Swaps
+                        Borderless.V1.Transactions.AssetDeposits
+                        Borderless.V1.Webhooks
+                        Borderless.V1.ComplianceChecks
+                        Borderless.V1.IntegrationsConfig
+                        Borderless.V1.Error
+                        Borderless.V1.Types.Common
+                        Borderless.V1.Types.Enums
+                        Borderless.V1.Types.Pagination
+                        Borderless.Client
+    other-modules:      Borderless.Prelude
+    default-extensions: DataKinds
+                      , DeriveAnyClass
+                      , DeriveGeneric
+                      , DerivingStrategies
+                      , FlexibleContexts
+                      , FlexibleInstances
+                      , GeneralizedNewtypeDeriving
+                      , LambdaCase
+                      , OverloadedLists
+                      , OverloadedStrings
+                      , RecordWildCards
+                      , MultiParamTypeClasses
+                      , NamedFieldPuns
+                      , ScopedTypeVariables
+                      , TypeApplications
+                      , TypeOperators
+                      , ViewPatterns
+    ghc-options:        -Wall -Wno-missing-fields
+
+test-suite test
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:    base
+                    , aeson
+                    , borderless
+                    , http-client
+                    , http-client-tls
+                    , servant-client
+                    , tasty
+                    , tasty-hunit
+                    , text
+                    , vector
+    ghc-options:      -Wall
+
+executable borderless-example
+    default-language: Haskell2010
+    hs-source-dirs:   examples/borderless-example
+    main-is:          Main.hs
+    build-depends:    base
+                    , borderless
+                    , text
+                    , vector
+    ghc-options:      -Wall
+
+executable standard-deposit-flow
+    default-language: Haskell2010
+    hs-source-dirs:   examples/standard-deposit-flow
+    main-is:          Main.hs
+    build-depends:    base
+                    , base64-bytestring
+                    , borderless
+                    , bytestring
+                    , text
+                    , vector
+    ghc-options:      -Wall
+
+executable virtual-account-flow
+    default-language: Haskell2010
+    hs-source-dirs:   examples/virtual-account-flow
+    main-is:          Main.hs
+    build-depends:    base
+                    , base64-bytestring
+                    , borderless
+                    , bytestring
+                    , text
+                    , vector
+    ghc-options:      -Wall
