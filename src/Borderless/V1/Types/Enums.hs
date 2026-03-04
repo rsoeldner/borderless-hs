@@ -8,8 +8,13 @@ module Borderless.V1.Types.Enums
     , IdentityDocumentType(..)
     , BusinessType(..)
     , AccountPurpose(..)
+    , PersonalAccountPurpose(..)
     , SourceOfFunds(..)
+    , PersonalSourceOfFunds(..)
     , Sex(..)
+    , OccupationCode(..)
+    , EmploymentStatus(..)
+    , MonthlyAmounts(..)
       -- * Transaction Enums
     , TransactionType(..)
     , TransactionStatus(..)
@@ -255,7 +260,150 @@ data Sex = Male | Female
     deriving stock (Eq, Generic, Show)
     deriving anyclass (FromJSON, ToJSON)
 
--- | Transaction types
+-- | Personal source of funds (for personal identity creation)
+data PersonalSourceOfFunds
+    = PsfCompanyFunds
+    | PsfEcommerceReseller
+    | PsfGamblingProceeds
+    | PsfGifts
+    | PsfGovernmentBenefits
+    | PsfInheritance
+    | PsfInvestmentsLoans
+    | PsfPensionRetirement
+    | PsfSalary
+    | PsfSaleOfAssetsRealEstate
+    | PsfSavings
+    | PsfSomeoneElsesFunds
+    deriving stock (Eq, Generic, Show)
+
+instance FromJSON PersonalSourceOfFunds where
+    parseJSON = A.withText "PersonalSourceOfFunds" $ \case
+        "CompanyFunds"           -> pure PsfCompanyFunds
+        "EcommerceReseller"      -> pure PsfEcommerceReseller
+        "GamblingProceeds"       -> pure PsfGamblingProceeds
+        "Gifts"                  -> pure PsfGifts
+        "GovernmentBenefits"     -> pure PsfGovernmentBenefits
+        "Inheritance"            -> pure PsfInheritance
+        "InvestmentsLoans"       -> pure PsfInvestmentsLoans
+        "PensionRetirement"      -> pure PsfPensionRetirement
+        "Salary"                 -> pure PsfSalary
+        "SaleOfAssetsRealEstate" -> pure PsfSaleOfAssetsRealEstate
+        "Savings"                -> pure PsfSavings
+        "SomeoneElsesFunds"      -> pure PsfSomeoneElsesFunds
+        other                    -> fail $ "Unknown PersonalSourceOfFunds: " <> show other
+
+instance ToJSON PersonalSourceOfFunds where
+    toJSON PsfCompanyFunds           = A.String "CompanyFunds"
+    toJSON PsfEcommerceReseller      = A.String "EcommerceReseller"
+    toJSON PsfGamblingProceeds       = A.String "GamblingProceeds"
+    toJSON PsfGifts                  = A.String "Gifts"
+    toJSON PsfGovernmentBenefits     = A.String "GovernmentBenefits"
+    toJSON PsfInheritance            = A.String "Inheritance"
+    toJSON PsfInvestmentsLoans       = A.String "InvestmentsLoans"
+    toJSON PsfPensionRetirement      = A.String "PensionRetirement"
+    toJSON PsfSalary                 = A.String "Salary"
+    toJSON PsfSaleOfAssetsRealEstate = A.String "SaleOfAssetsRealEstate"
+    toJSON PsfSavings                = A.String "Savings"
+    toJSON PsfSomeoneElsesFunds      = A.String "SomeoneElsesFunds"
+
+-- | Personal account purpose (for personal identity creation)
+data PersonalAccountPurpose
+    = PapCharitableDonations
+    | PapEcommerceRetailPayments
+    | PapInvestmentPurposes
+    | PapOperatingACompany
+    | PapOther
+    | PapPaymentsToFriendsOrFamilyAbroad
+    | PapPersonalOrLivingExpenses
+    | PapProtectWealth
+    | PapPurchaseGoodsAndServices
+    | PapReceivePaymentForFreelancing
+    | PapReceiveSalary
+    deriving stock (Eq, Generic, Show)
+
+instance FromJSON PersonalAccountPurpose where
+    parseJSON = A.withText "PersonalAccountPurpose" $ \case
+        "CharitableDonations"            -> pure PapCharitableDonations
+        "EcommerceRetailPayments"        -> pure PapEcommerceRetailPayments
+        "InvestmentPurposes"             -> pure PapInvestmentPurposes
+        "OperatingACompany"              -> pure PapOperatingACompany
+        "Other"                          -> pure PapOther
+        "PaymentsToFriendsOrFamilyAbroad"-> pure PapPaymentsToFriendsOrFamilyAbroad
+        "PersonalOrLivingExpenses"       -> pure PapPersonalOrLivingExpenses
+        "ProtectWealth"                  -> pure PapProtectWealth
+        "PurchaseGoodsAndServices"       -> pure PapPurchaseGoodsAndServices
+        "ReceivePaymentForFreelancing"   -> pure PapReceivePaymentForFreelancing
+        "ReceiveSalary"                  -> pure PapReceiveSalary
+        other                            -> fail $ "Unknown PersonalAccountPurpose: " <> show other
+
+instance ToJSON PersonalAccountPurpose where
+    toJSON PapCharitableDonations             = A.String "CharitableDonations"
+    toJSON PapEcommerceRetailPayments         = A.String "EcommerceRetailPayments"
+    toJSON PapInvestmentPurposes              = A.String "InvestmentPurposes"
+    toJSON PapOperatingACompany               = A.String "OperatingACompany"
+    toJSON PapOther                           = A.String "Other"
+    toJSON PapPaymentsToFriendsOrFamilyAbroad = A.String "PaymentsToFriendsOrFamilyAbroad"
+    toJSON PapPersonalOrLivingExpenses        = A.String "PersonalOrLivingExpenses"
+    toJSON PapProtectWealth                   = A.String "ProtectWealth"
+    toJSON PapPurchaseGoodsAndServices        = A.String "PurchaseGoodsAndServices"
+    toJSON PapReceivePaymentForFreelancing    = A.String "ReceivePaymentForFreelancing"
+    toJSON PapReceiveSalary                   = A.String "ReceiveSalary"
+
+-- | Employment status (for personal identity creation)
+data EmploymentStatus
+    = EsEmployed
+    | EsHomemaker
+    | EsRetired
+    | EsSelfEmployed
+    | EsStudent
+    | EsUnemployed
+    deriving stock (Eq, Generic, Show)
+
+instance FromJSON EmploymentStatus where
+    parseJSON = A.withText "EmploymentStatus" $ \case
+        "Employed"     -> pure EsEmployed
+        "Homemaker"    -> pure EsHomemaker
+        "Retired"      -> pure EsRetired
+        "SelfEmployed" -> pure EsSelfEmployed
+        "Student"      -> pure EsStudent
+        "Unemployed"   -> pure EsUnemployed
+        other          -> fail $ "Unknown EmploymentStatus: " <> show other
+
+instance ToJSON EmploymentStatus where
+    toJSON EsEmployed     = A.String "Employed"
+    toJSON EsHomemaker    = A.String "Homemaker"
+    toJSON EsRetired      = A.String "Retired"
+    toJSON EsSelfEmployed = A.String "SelfEmployed"
+    toJSON EsStudent      = A.String "Student"
+    toJSON EsUnemployed   = A.String "Unemployed"
+
+-- | Expected monthly amounts on the account in USD
+data MonthlyAmounts
+    = MaLessThan5K
+    | MaFrom5KTo10K
+    | MaFrom10KTo50K
+    | MaGreaterThan50K
+    deriving stock (Eq, Generic, Show)
+
+instance FromJSON MonthlyAmounts where
+    parseJSON = A.withText "MonthlyAmounts" $ \case
+        "LessThan5K"     -> pure MaLessThan5K
+        "From5KTo10K"    -> pure MaFrom5KTo10K
+        "From10KTo50K"   -> pure MaFrom10KTo50K
+        "GreaterThan50K" -> pure MaGreaterThan50K
+        other            -> fail $ "Unknown MonthlyAmounts: " <> show other
+
+instance ToJSON MonthlyAmounts where
+    toJSON MaLessThan5K     = A.String "LessThan5K"
+    toJSON MaFrom5KTo10K    = A.String "From5KTo10K"
+    toJSON MaFrom10KTo50K   = A.String "From10KTo50K"
+    toJSON MaGreaterThan50K = A.String "GreaterThan50K"
+
+-- | Occupation codes (SOC codes)
+newtype OccupationCode = OccupationCode { unOccupationCode :: Text }
+    deriving newtype (Eq, FromJSON, IsString, Show, ToJSON)
+
+
 data TransactionType
     = AssetDeposit
     | Deposit

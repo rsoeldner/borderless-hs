@@ -141,17 +141,25 @@ instance ToJSON IdentityEntity where
 
 -- | Request to create a personal identity
 data PersonalIdentityCreateDto = PersonalIdentityCreateDto
-    { _personalIdentityCreateDtoFirstName      :: Text
-    , _personalIdentityCreateDtoLastName       :: Text
-    , _personalIdentityCreateDtoSecondLastName :: Maybe Text
-    , _personalIdentityCreateDtoMiddleName     :: Maybe Text
-    , _personalIdentityCreateDtoTaxId          :: Maybe Text
-    , _personalIdentityCreateDtoDateOfBirth    :: Text  -- YYYY-MM-DD
-    , _personalIdentityCreateDtoEmail          :: Maybe Text
-    , _personalIdentityCreateDtoPhone          :: Maybe Text
-    , _personalIdentityCreateDtoActivity       :: Maybe Text
-    , _personalIdentityCreateDtoSex            :: Maybe Sex
-    , _personalIdentityCreateDtoAddress        :: Maybe PostalAddressDto
+    { _personalIdentityCreateDtoFirstName          :: Text
+    , _personalIdentityCreateDtoLastName           :: Text
+    , _personalIdentityCreateDtoSecondLastName     :: Maybe Text
+    , _personalIdentityCreateDtoMiddleName         :: Maybe Text
+    , _personalIdentityCreateDtoTaxId              :: Maybe Text
+    , _personalIdentityCreateDtoDateOfBirth        :: Text  -- YYYY-MM-DD
+    , _personalIdentityCreateDtoEmail              :: Maybe Text
+    , _personalIdentityCreateDtoPhone              :: Maybe Text
+    , _personalIdentityCreateDtoActivity           :: Maybe Text
+    , _personalIdentityCreateDtoSex                :: Maybe Sex
+    , _personalIdentityCreateDtoAddress            :: Maybe PostalAddressDto
+    , _personalIdentityCreateDtoOccupationCode     :: Maybe OccupationCode
+    , _personalIdentityCreateDtoEmploymentStatus   :: Maybe EmploymentStatus
+    , _personalIdentityCreateDtoSourceOfFunds      :: Maybe PersonalSourceOfFunds
+    , _personalIdentityCreateDtoAccountPurpose     :: Maybe PersonalAccountPurpose
+    , _personalIdentityCreateDtoAccountPurposeOther :: Maybe Text
+    , _personalIdentityCreateDtoMonthlyAmounts     :: Maybe MonthlyAmounts
+    , _personalIdentityCreateDtoActingAsIntermediary :: Maybe Bool
+    , _personalIdentityCreateDtoCitizenship        :: Maybe CountryCode
     } deriving stock (Eq, Generic, Show)
 
 instance FromJSON PersonalIdentityCreateDto where
@@ -165,17 +173,25 @@ instance ToJSON PersonalIdentityCreateDto where
 -- | Default personal identity create request
 _PersonalIdentityCreateDto :: PersonalIdentityCreateDto
 _PersonalIdentityCreateDto = PersonalIdentityCreateDto
-    { _personalIdentityCreateDtoFirstName      = ""
-    , _personalIdentityCreateDtoLastName       = ""
-    , _personalIdentityCreateDtoSecondLastName = Nothing
-    , _personalIdentityCreateDtoMiddleName     = Nothing
-    , _personalIdentityCreateDtoTaxId          = Nothing
-    , _personalIdentityCreateDtoDateOfBirth    = ""
-    , _personalIdentityCreateDtoEmail          = Nothing
-    , _personalIdentityCreateDtoPhone          = Nothing
-    , _personalIdentityCreateDtoActivity       = Nothing
-    , _personalIdentityCreateDtoSex            = Nothing
-    , _personalIdentityCreateDtoAddress        = Nothing
+    { _personalIdentityCreateDtoFirstName             = ""
+    , _personalIdentityCreateDtoLastName              = ""
+    , _personalIdentityCreateDtoSecondLastName        = Nothing
+    , _personalIdentityCreateDtoMiddleName            = Nothing
+    , _personalIdentityCreateDtoTaxId                 = Nothing
+    , _personalIdentityCreateDtoDateOfBirth           = ""
+    , _personalIdentityCreateDtoEmail                 = Nothing
+    , _personalIdentityCreateDtoPhone                 = Nothing
+    , _personalIdentityCreateDtoActivity              = Nothing
+    , _personalIdentityCreateDtoSex                   = Nothing
+    , _personalIdentityCreateDtoAddress               = Nothing
+    , _personalIdentityCreateDtoOccupationCode        = Nothing
+    , _personalIdentityCreateDtoEmploymentStatus      = Nothing
+    , _personalIdentityCreateDtoSourceOfFunds         = Nothing
+    , _personalIdentityCreateDtoAccountPurpose        = Nothing
+    , _personalIdentityCreateDtoAccountPurposeOther   = Nothing
+    , _personalIdentityCreateDtoMonthlyAmounts        = Nothing
+    , _personalIdentityCreateDtoActingAsIntermediary  = Nothing
+    , _personalIdentityCreateDtoCitizenship           = Nothing
     }
 
 -- | Beneficial owner DTO for creating business identities
